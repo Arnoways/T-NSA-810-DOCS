@@ -11,28 +11,28 @@
 
 # SUMMARY
 
-- CIA PROJECT PRESENTATION
-  1. INTRODUCTION
-  2. CONSTRAINTS
-  3. NEEDS AND GOALS
-- HOW WE GOT FULL ACCESS ON THE INFRASTRUCTURE
-  1. INFORMATION WE HAD TO BEGIN WITH
-  2. INFORMATION RETRIEVED
-  3. TABLE OF MACHINES RESOURCES
-  4. INFRASTRUCTURE SCHEMA
-- FIX WEB APP
-  1. FIXING THE FRONT
-  2. FIXING THE API
-- API LOGGING SYSTEM
-- NEXUS SETTED UP TO STORE ALL ARTIFACTS
-  1. WHY NEXUS ?
-  2. NEXUS SETUP
-  3. HOW ARTIFACTS ARE RETRIEVED FROM NEXUS
-- GITLAB WITH CI/CD LINKED TO NEXUS
-  1. GITLAB SETUP
-  2. CI/CD PIPELINES
-- AUDITING OTHER SERVICES
-- CONCLUSION
+- [CIA PROJECT PRESENTATION](#cia-project-presentation)
+  1. [INTRODUCTION](#introduction)
+  2. [CONSTRAINTS](#constraints)
+  3. [NEEDS AND GOALS](#needs-and-goals)
+- [HOW WE GOT FULL ACCESS TO THE INFRASTRUCTURE](#how-we-got-full-access-to-the-infrastructure)
+  1. [INFORMATION WE HAD TO BEGIN WITH](#information-we-had-to-begin-with)
+  2. [INFORMATION RETRIEVED](#information-retrieved)
+  3. [TABLE OF MACHINES RESOURCES](#table-of-machines-resources)
+  4. [INFRASTRUCTURE SCHEMA](#infrastructure-schema)
+- [FIX WEB APP](#fix-web-app)
+  1. [FIXING THE FRONT](#fixing-the-front)
+  2. [FIXING THE API](#fixing-the-api)
+- [API LOGGING SYSTEM](#api-logging-system)
+- [NEXUS INSTALLED AND CONFIGURED TO STORE ALL ARTIFACTS](#nexus-installed-and-configured-to-store-all-artifacts)
+  1. [WHY NEXUS ?](#why-nexus)
+  2. [NEXUS SETUP](#nexus-setup)
+  3. [HOW ARTIFACTS ARE RETRIEVED FROM NEXUS](#how-artifacts-are-retrieved-from-nexus)
+- [GITLAB WITH CI/CD LINKED TO NEXUS](#gitlab-with-ci/cd-linked-to-nexus)
+  1. [GITLAB SETUP](#gitlab-setup)
+  2. [CI/CD PIPELINES](#ci/cd-pipelines)
+- [AUDITING OTHER SERVICES](#auditing-other-services)
+- [CONCLUSION](#conclusion)
 
 # CIA PROJECT PRESENTATION
 
@@ -87,11 +87,11 @@ This allowed us to get the following tables & schema:
 ### TABLE OF MACHINES RESOURCES
 
 | Machine name | IP - DHCP | vCPU | RAM (GB) | 
-| --- | --- | --- | --- | --- | --- |
-| Machine-1 | 192.168.1.64 | 2 | 0.2 | 2 | 5 |
-| Machine-2 | 192.168.1.61 | 2 | 0.2 | 2 | 5 |
-| Machine-3 | 192.168.1.62 | 2 | 0.3 | 2 | 5 |
-| Machine-4 | 192.168.1.63 | 2 | 0.8 | 2 | 5 |
+| --- | --- | --- | --- |
+| Machine-1 | 192.168.1.64 | 2 | 2 | 
+| Machine-2 | 192.168.1.61 | 2 | 2 | 
+| Machine-3 | 192.168.1.62 | 2 | 2 | 
+| Machine-4 | 192.168.1.63 | 2 | 2 | 
 
 
 ### TABLE OF LAUNCHED CONTAINERS BY MACHINE
