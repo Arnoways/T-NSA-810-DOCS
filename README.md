@@ -123,7 +123,7 @@ Still, there was an issue to log into the webapp, by looking at logs we realized
 ### FIXING THE API
 
 After researches, we found a docker-compose.yml file in the directory /home/service-web/back/ of the __machine-3__ with a wrong configuration. We fixed it, rebuilt the docker image and started the container. We also moved the credentials set in the environment variables in a .env file so we could push the docker-compose to our versioning system (gitlab) later on.
-While looking at the source code we also found a [potential security issue](security/api-admin-password.md).
+While looking at the source code we also found a [potential security issue](security/API_ADMIN_PASSWORD.md).
 
 
 ## API LOGGING SYSTEM
@@ -167,7 +167,10 @@ After the work we presented above, we started to look into the other services th
 ### Machine-1
 
 ### Machine-3
+- [NAGIOS XI](security/NAGIOS.md)
 ### Machine-4
+- [OctoberCMS](security/OCTOBER.md)
+- [Portainer](security/PORTAINER.md)
 
 SPOF
 
