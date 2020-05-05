@@ -2,7 +2,6 @@
 
 ## REPORT – GROUP N°5
 
-
 | Author | Contact |
 | --- | --- |
 | Wilfried RAYNAUD | [wilfried.raynaud@epitech.eu](mailto:wilfried.raynaud@epitech.eu) |
@@ -18,7 +17,7 @@
 - [HOW WE GOT FULL ACCESS TO THE INFRASTRUCTURE](#how-we-got-full-access-to-the-infrastructure)
   1. [INFORMATION WE HAD TO BEGIN WITH](#information-we-had-to-begin-with)
   2. [INFORMATION RETRIEVED](#information-retrieved)
-  3. [TABLE OF MACHINES RESOURCES](#table-of-machines-resources)
+  3. [TABLE OF MACHINES RESOURCES AND USERS](#table-of-machines-resources-and-users)
   4. [INFRASTRUCTURE SCHEMA](#infrastructure-schema)
 - [FIX WEB APP](#fix-web-app)
   1. [FIXING THE FRONT](#fixing-the-front)
@@ -84,20 +83,18 @@ This describes the steps we followed in order to gain information about the mach
 
 This allowed us to get the following tables & schema:
 
-### TABLE OF MACHINES RESOURCES
+### TABLE OF MACHINES RESOURCES AND USERS
 
-| Machine name | IP - DHCP | vCPU | RAM (GB) | 
-| --- | --- | --- | --- |
-| Machine-1 | 192.168.1.64 | 2 | 2 | 
-| Machine-2 | 192.168.1.61 | 2 | 2 | 
-| Machine-3 | 192.168.1.62 | 2 | 2 | 
-| Machine-4 | 192.168.1.63 | 2 | 2 | 
-
+| Machine name | IP - DHCP | vCPU | RAM (GB) | Users |
+| --- | --- | --- | --- | --- |
+| Machine-1 | 192.168.1.64 | 2 | 2 | root, admin, soupeladmin, service-web |
+| Machine-2 | 192.168.1.61 | 2 | 2 | root, admin, service-web |
+| Machine-3 | 192.168.1.62 | 2 | 2 | root, admin, service-web |
+| Machine-4 | 192.168.1.63 | 2 | 2 | root, admin |
 
 ### TABLE OF LAUNCHED CONTAINERS BY MACHINE
 
 ![First schema](static/first_schema.png)
-
 
 ## FIX WEB APP
 
@@ -119,12 +116,10 @@ New IP addresses:
 
 Still, there was an issue to log into the webapp, by looking at logs we realized there was an issue with the API.  
 
-
 ### FIXING THE API
 
 After researches, we found a docker-compose.yml file in the directory /home/service-web/back/ of the __machine-3__ with a wrong configuration. We fixed it, rebuilt the docker image and started the container. We also moved the credentials set in the environment variables in a .env file so we could push the docker-compose to our versioning system (gitlab) later on.
 While looking at the source code we also found a [potential security issue](security/API_ADMIN_PASSWORD.md).
-
 
 ## API LOGGING SYSTEM
 
@@ -159,7 +154,6 @@ The pipelines are building the Dockerfile into docker images and, if the previou
 
 Only the `docker-compose.yml` files are remaining in the machines to manage the containers. The application image is now being pulled directly from the nexus repository which gives us more control on our technical stack.  
 
-
 ## AUDITING OTHER SERVICES
 
 After the work we presented above, we started to look into the other services that were not mentioned in our instructions to understand why they were here and if they presented potential security issues.
@@ -172,12 +166,10 @@ After the work we presented above, we started to look into the other services th
 - [OctoberCMS](security/OCTOBER.md)
 - [Portainer](security/PORTAINER.md)
 
-
 # CONCLUSION
 In conclusion we did set up a rapid and efficient way of deploying our software while adding extra layers of security and good practices.   
 This is a schema of the current information system. 
 ![Final schema](static/final_schema.png)
-
 
 ## What next?
 You should check out our security reports and put together our recommended actions so we can plan a project for improving our information system.  
