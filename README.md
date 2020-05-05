@@ -1,75 +1,67 @@
-|
- |
- |
- |
-| --- | --- | --- |
-
 # CIA PROJECT
 
 ## REPORT – GROUP N°5
 
-![](RackMultipart20200505-4-180sv6w_html_ca782b55cd67bb6c.png)
 
-| Wilfried RAYNAUD | [wilfried.raynaud@epitech.eu](mailto:wilfried.raynaud@epitech.eu) |
+| Author | Contact |
 | --- | --- |
+| Wilfried RAYNAUD | [wilfried.raynaud@epitech.eu](mailto:wilfried.raynaud@epitech.eu) |
 | Arnaud SINAYS | [arnaud.sinays@epitech.eu](mailto:arnaud.sinays@epitech.eu) |
 | Lucas LEMOIGNE | [lucas.lemoigne@epitech.eu](mailto:lucas.lemoigne@epitech.eu) |
 
 # SUMMARY
 
-1. CIA PROJECT PRESENTATION
+- CIA PROJECT PRESENTATION
   1. INTRODUCTION
   2. CONSTRAINTS
-  3. NEEDS AND LENS
-2. HOW WE GET FULL ACCESS ON THE INFRASTRUCTURE
-  1. INFORMATIONS GIVEN BY THE MANAGER
-  2. INFORMATIONS RETRIEVED
-3. COMPLETE INVENTORY OF THE INFRASTRUCTURE AT THE BEGINNING
-  1. TABLE OF MACHINES RESOURCES
-  2. TABLE OF CONTAINERS STATUS BY MACHINES
-4. WEB APPLICATION FUNCTIONNAL AGAIN
-  1. PREREQUISITES
-  2. MODIFICATIONS TO MAKE IT FUNCTIONNAL AGAIN
-5. API LOGGING SYSTEM
-6. NEXUS SETTED UP TO STORE ALL ARTIFACTS
+  3. NEEDS AND GOALS
+- HOW WE GOT FULL ACCESS ON THE INFRASTRUCTURE
+  1. INFORMATION WE HAD TO BEGIN WITH
+  2. INFORMATION RETRIEVED
+  3. TABLE OF MACHINES RESOURCES
+  4. INFRASTRUCTURE SCHEMA
+- FIX WEB APP
+  1. FIXING THE FRONT
+  2. FIXING THE API
+- API LOGGING SYSTEM
+- NEXUS SETTED UP TO STORE ALL ARTIFACTS
   1. WHY NEXUS ?
-  2. HOW WE STORE ALL ARTIFACTS
+  2. NEXUS SETUP
   3. HOW ARTIFACTS ARE RETRIEVED FROM NEXUS
-7. GITLAB SETTED UP WITH A CI/CD PROCESS LINKED TO NEXUS
-  1. HOW THE CI/CD WORKS
-8. COMPLETE REPORT OF VULNERABILITIES DETECTED
-9. ALL PATCHED VULNERABILITIES
-10. ALL UNPATCHED VULNERABILITIES
-11. CONCLUSION
+- GITLAB WITH CI/CD LINKED TO NEXUS
+  1. GITLAB SETUP
+  2. CI/CD PIPELINES
+- AUDITING OTHER SERVICES
+- CONCLUSION
 
 # CIA PROJECT PRESENTATION
 
 ## INTRODUCTION
 
-We have been recruited to replace the former system administrator and our first mission is to restore the web application. It is not functional and this has paralyzed the inventory department. The company fears a cyber-attack against it in the coming weeks. So we had to take possession of the infrastructure and repair it. Then we had to meet all the needs and objectives provided by the manager.
+We have been recruited to replace the former system administrator and our first mission is to restore the web application. It was not functional and was paralyzing the inventory department. The company feared a cyber-attack against it in the upcoming weeks. So we had to take possession of the infrastructure and repair it. Then we had to meet all the needs and objectives provided by the manager.
 
 ## CONSTRAINTS
 
 Four constraints to respect:
 
-- API will not be moved to another host
-- The web application must not be hosted on the same host as that of the API
-- All services must be containerized
-- All containers must be launched with the user &quot;service - web&quot;.
+- API will not be moved to another host.
+- The web application cannot be in the same host as the API.
+- All services must be containerised.
+- All containers must be launched with the user __service-web__.
 
-## NEEDS AND LENS
+## NEEDS AND GOALS
 
 We had to make the infrastructure sustainable. For this we had to set up:
 
-- A complete API logging system
-- Gitlab with a CI/CD process
-- An artifact management software
+- A complete API logging system.
+- A scripted integration and deployment system with Gitlab as a versionning service.
+- An artifact management software linked to the deployment system.
 
-We also had to fix all the vulnerabilities detected.
+We also had to fix any vulnerabilities we would encounter.
 
-# HOW WE GET FULL ACCESS TO THE INFRASTRUCTURE
+# HOW WE GOT FULL ACCESS TO THE INFRASTRUCTURE
 
-## INFORMATIONS GIVEN BY THE MANAGER
+## INFORMATION WE HAD TO BEGIN WITH
 
 The website is hosted by four virtual machines:
 
@@ -82,49 +74,37 @@ The monitoring is managed by Portainer.
 
 Some credentials (login and password) without the corresponding platform.
 
-## INFORMATIONS RETRIEVED
+## INFORMATION RETRIEVED
 
-We retrieved some informations:
+This describes the steps we followed in order to gain information about the machines:
 
-1. Resources by VM.
-2. The (unsecure) root password of all machines: admin
-3. All IP addresses (DHCP).
-4. Identifying which host is hosting which service: (see above : COMPLETE INVENTORY OF THE INFRASTRUCTURE AT THE BEGINNING)
+1. Get resources and ips by VM.
+2. Try to log into the machine, making us writing our [first report about a security issue](security/ROOT_PASSWORD.md).
+3. Identify which host is hosting which service and what are they supposed to do.
 
-# COMPLETE INVENTORY OF THE INFRASTRUCTURE AT THE BEGINNING
+This allowed us to get the following tables & schema:
 
-## TABLE OF MACHINES RESOURCES
+### TABLE OF MACHINES RESOURCES
 
-| Machine name | IP - DHCP | vCPU | CPU Usage ~ (%) | RAM (GB) | RAM Usage ~ (%) |
+| Machine name | IP - DHCP | vCPU | RAM (GB) | 
 | --- | --- | --- | --- | --- | --- |
 | Machine-1 | 192.168.1.64 | 2 | 0.2 | 2 | 5 |
 | Machine-2 | 192.168.1.61 | 2 | 0.2 | 2 | 5 |
 | Machine-3 | 192.168.1.62 | 2 | 0.3 | 2 | 5 |
 | Machine-4 | 192.168.1.63 | 2 | 0.8 | 2 | 5 |
 
-##
 
-## TABLE OF LAUNCHED CONTAINERS BY MACHINE
+### TABLE OF LAUNCHED CONTAINERS BY MACHINE
 
-| Machine name | Container name | Port(s) | Status | Image |
-| --- | --- | --- | --- | --- |
-| Machine-1 | front\_front\_1 | 8080:80 | Up | front\_front |
-| m1\_proftpd\_1 | 21:21 | Up | m1\_proftpd |
-| m1\_nginx\_1 | 80:80 | Up | m1\_nginx |
-| m1\_flatfile\_1 | 80 (exposed) | Up | m1\_flatfile |
-| Machine-2 | m2\_server\_1
- | 80 (exposed)222:2280:3000 | Up | m2\_server
- |
-| m2\_db\_1 | 3306 (exposed)33060 (exposed) | Up | mysql:5.7 |
-| Machine-3 | nostalgic\_ganguly | 80:80 | Up | nagiosxi:5.5.6 |
-| dev\_db
- | 3306:330633060 (exposed) | Up | mysql:5.7 |
-| Machine-4 | brave\_napier | ??? | Restarting (1) | octobercms:1.0.412 |
-| portainer | 8000:80009000:9000 | Up | portainer/portainer |
+![First schema](static/first_schema.png)
 
-# WEB APPLICATION FUNCTIONNAL AGAIN
 
-## PREREQUISITES
+## FIX WEB APP
+
+### FIXING THE FRONT
+
+The web application is on the __machine-1__ host and its configuration is in the directory /home/service-web/front/.  
+By looking at the source code we know it is supposed to communicate with the API we located on __machine-3__ .
 
 We saw that the API IP address was incorrect in the web application .env file, so we decided to have a static IP address for each machine to fix this and prevent it from happening again.
 
@@ -137,39 +117,59 @@ New IP addresses:
 | Machine-3 | 192.168.43.203 |
 | Machine-4 | 192.168.43.204 |
 
-## MODIFICATIONS TO MAKE IT FUNCTIONNAL AGAIN
+Still, there was an issue to log into the webapp, by looking at logs we realized there was an issue with the API.  
 
-So, the web application is on the host named &#39;machine-1&#39; and his configuration is in the directory /home/service-web/front/. But for now, we don&#39;t know where is the API.
 
-After researches, we found a docker-compose.yml file in the directory /home/service-web/back/ of the host named &#39;machine-3&#39; with a wrong configuration. We fixed it, rebuilt the docker image and started the container. At this moment, the API was running but we also had to update the .env file for the front-end to make the web application working again.
+### FIXING THE API
 
-# API LOGGING SYSTEM
+After researches, we found a docker-compose.yml file in the directory /home/service-web/back/ of the __machine-3__ with a wrong configuration. We fixed it, rebuilt the docker image and started the container. We also moved the credentials set in the environment variables in a .env file so we could push the docker-compose to our versioning system (gitlab) later on.
+While looking at the source code we also found a [potential security issue](security/api-admin-password.md).
 
-It already exists: [http://machine-3:3000/swagger-stats/ui](http://machine-3:3000/swagger-stats/ui)
 
-# NEXUS INSTALLED AND CONFIGURED TO STORE ALL ARTIFACTS
+## API LOGGING SYSTEM
 
-## WHY NEXUS ?
+We have now access to it: [http://machine-3:3000/swagger-stats/ui](http://machine-3:3000/swagger-stats/ui)
 
-Nexus is one of the best Repository Managers with an Open Source version. It will cover all of our needs :
+## NEXUS INSTALLED AND CONFIGURED TO STORE ALL ARTIFACTS
 
-- Hosted Docker Registry
-- Proxy for Docker Hub
+### WHY NEXUS ?
 
-## HOW WE STORE ALL ARTIFACTS
+Nexus is one of the best Repository Managers with an Open Source version. It allow us to create a Hosted Docker repository which will fit our need to store artifacts produced by our CI/CD pipelines on Gitlab. 
 
-## HOW ARTIFACTS ARE RETRIEVED FROM NEXUS
+### NEXUS SETUP
 
-# GITLAB SETTED UP WITH A CI/CD PROCESS LINKED TO NEXUS
+Since all of our services have to be containerised, we chose to use [the official docker image for nexus](https://hub.docker.com/r/sonatype/nexus3/) to setup this solution. We didn't want the service to be with the front nor with the back so we picked __machine-4__ to host it. 
 
-## HOW THE CI/CD WORKS
+### HOW ARTIFACTS ARE RETRIEVED FROM NEXUS
 
-# COMPLETE REPORT OF VULNERABILITIES DETECTED
+We created our private docker registry on Nexus. Once we did that, we had to change the docker configuration on every host to ensure they had our repository in their configuration. We added, on each host, a `/etc/docker/daemon.json` in which we were declaring our repository's IP address and port. After a restart of the docker service, we had to make sure docker clients had access to the repository by using ```docker login``` with the appropriated rights.
 
-# ALL PATCHED VULNERABILITIES
+## GITLAB WITH CI/CD LINKED TO NEXUS
 
-# ALL UNPATCHED VULNERABILITIES
+### GITLAB SETUP
+
+We noticed that our predecessor tried to setup a Gitea service on __machine-2__ so we removed that container and replaced it with Gitlab. Again, by using [the official image](https://hub.docker.com/_/gitlab-community-edition/plans/6a33c5d4-c1cc-48f4-ae30-e033126ffd7f?tab=instructions) of the community edition.
+
+Once done, we created a repository of code for the frontend and the backend, allowing us to remove the source code from the machines.
+
+### CI/CD PIPELINES
+
+We created two `.gitlab-ci.yml` files, one for each repository, in which we were describing the steps we wanted for our scripted integration.  
+The pipelines are building the Dockerfile into docker images and, if the previous step succeeded, are pushing theses images to our Private Docker registry in Nexus.  
+
+Only the `docker-compose.yml` files are remaining in the machines to manage the containers. The application image is now being pulled directly from the nexus repository which gives us more control on our technical stack.  
+
+
+## AUDITING OTHER SERVICES
+
+After the work we presented above, we started to look into the other services that were not mentioned in our instructions to understand why they were here and if they presented potential security issues.
+
+### Machine-1
+
+### Machine-3
+### Machine-4
 
 SPOF
 
 # CONCLUSION
+![Final schema](static/final_schema.png)
