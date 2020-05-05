@@ -182,3 +182,7 @@ This is a schema of the current information system.
 ## What next?
 You should check out our security reports and put together our recommended actions so we can plan a project for improving our information system.  
 We also think we should be careful about our SPOFs (Single Point of Failure), because some might be *really* critical for our company and our business, what we recommend is that we should plan to setup high-availability & backup solutions especially for our databases.
+A last thing, we should have a CA (Certification Authority) to create Self-Signed TLS Certificates for HTTPS connections. Currently, all connections are over HTTP.
+Thank you for your attention.
+Best Regards,
+CIA - Group N°5
