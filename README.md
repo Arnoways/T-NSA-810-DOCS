@@ -172,7 +172,13 @@ After the work we presented above, we started to look into the other services th
 - [OctoberCMS](security/OCTOBER.md)
 - [Portainer](security/PORTAINER.md)
 
-SPOF
 
 # CONCLUSION
+In conclusion we did set up a rapid and efficient way of deploying our software while adding extra layers of security and good practices.   
+This is a schema of the current information system. 
 ![Final schema](static/final_schema.png)
+
+
+## What next?
+You should check out our security reports and put together our recommended actions so we can plan a project for improving our information system.  
+We also think we should be careful about our SPOFs (Single Point of Failure), because some might be *really* critical for our company and our business, what we recommend is that we should plan to setup high-availability & backup solutions especially for our databases.
